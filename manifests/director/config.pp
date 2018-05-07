@@ -62,9 +62,9 @@ class bacula::director::config
     # Configuration fragment directory; mainly for exported configuration 
     # fragments coming from Filedaemon nodes
     file { 'bacula-bacula-dir.conf.d':
-        ensure  => directory,
-        name    => '/etc/bacula/bacula-dir.conf.d',
-        mode    => '0750',
+        ensure => directory,
+        name   => '/etc/bacula/bacula-dir.conf.d',
+        mode   => '0750',
     }
 
     # Main config file
@@ -78,11 +78,11 @@ class bacula::director::config
 
     # Make the delete_catalog_backup script executable
     file { 'bacula-delete_catalog_backup':
-        name    => '/etc/bacula/scripts/delete_catalog_backup',
-        owner   => $::os::params::adminuser,
-        group   => $::os::params::admingroup,
-        mode    => '0755',
-        notify  => undef,
+        name   => '/etc/bacula/scripts/delete_catalog_backup',
+        owner  => $::os::params::adminuser,
+        group  => $::os::params::admingroup,
+        mode   => '0755',
+        notify => undef,
     }
 
     # Import exported configuration fragments from clients

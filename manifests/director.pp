@@ -90,6 +90,11 @@
 #
 class bacula::director
 (
+            $pwd_for_console,
+            $pwd_for_monitor,
+            $sd_password,
+            $postgresql_auth_line,
+            $bacula_db_password,
     Boolean $manage = true,
     Boolean $manage_db = true,
     Boolean $manage_packetfilter = true,
@@ -99,12 +104,7 @@ class bacula::director
             $export_tag = 'bacula-dir.conf.d-fragment',
             $console_host = '127.0.0.1',
             $bind_address = '127.0.0.1',
-            $pwd_for_console,
-            $pwd_for_monitor,
             $sd_host = '127.0.0.1',
-            $sd_password,
-            $postgresql_auth_line,
-            $bacula_db_password,
             $default_schedules = ['Level=Full sun at 05:00',
                                   'Level=Incremental mon-sat at 05:00'],
             $file_retention = '60 days',

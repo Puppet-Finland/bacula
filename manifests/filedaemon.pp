@@ -75,6 +75,10 @@
 #
 class bacula::filedaemon
 (
+            $director_address_ipv4,
+            $pwd_for_director,
+            $pwd_for_monitor,
+            $backup_files,
     Enum['present','absent'] $status = 'present',
     Boolean $manage = true,
     Boolean $manage_packetfilter = true,
@@ -84,11 +88,7 @@ class bacula::filedaemon
             $export_tag = 'bacula-dir.conf.d-fragment',
             $package_name = $::bacula::params::bacula_filedaemon_package,
             $is_director = false,
-            $director_address_ipv4,
-            $pwd_for_director,
-            $pwd_for_monitor,
             $bind_address = '127.0.0.1',
-            $backup_files,
             $exclude_files = undef,
             $schedules = undef,
             $messages = 'All',

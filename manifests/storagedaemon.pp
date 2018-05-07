@@ -48,18 +48,18 @@
 #
 class bacula::storagedaemon
 (
-    Boolean $manage = true,
-    Boolean $manage_packetfilter = true,
-    Boolean $manage_monit = true,
             $director_address_ipv4,
             $pwd_for_director,
             $pwd_for_monitor,
+            $filedaemon_addresses_ipv4,
+    Boolean $manage = true,
+    Boolean $manage_packetfilter = true,
+    Boolean $manage_monit = true,
             $bind_address = '127.0.0.1',
             $backup_directory = '/var/backups/bacula',
             $tls_enable = false,
             $use_puppet_certs = true,
-            $monitor_email = $::servermonitor,
-            $filedaemon_addresses_ipv4
+            $monitor_email = $::servermonitor
 )
 {
 

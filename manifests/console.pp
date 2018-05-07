@@ -23,11 +23,11 @@
 #
 class bacula::console
 (
-    Boolean $manage = true,
-    Boolean $tls_enable = false,
-    Boolean $use_puppet_certs = true,
             $director_address_ipv4,
             $director_password,
+    Boolean $manage = true,
+    Boolean $tls_enable = false,
+    Boolean $use_puppet_certs = true
 )
 {
 
