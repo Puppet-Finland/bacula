@@ -2,16 +2,75 @@
   "name": "puppetfinland-bacula",
   "version": "4.0.0",
   "author": "Puppet-Finland team",
+  "summary": "Setup Bacula Directors, StorageDaemons and FileDaemons with firewall and monit support",
   "license": "BSD-2-Clause",
-  "summary": "Setup Bacula Directors, StorageDaemons and FileDaemons",
-  "source": "https://github.com/Puppet-Finland/bacula.git",
-  "project_page": "https://github.com/Puppet-Finland/bacula",
+  "source": "https://github.com/Puppet-Finland/puppet-bacula.git",
+  "project_page": "https://github.com/Puppet-Finland/puppet-bacula",
   "dependencies": [
-    { "name": "puppetfinland/monit", "version_requirement": ">= 0.5.0" },
-    { "name": "puppetfinland/packetfilter", "version_requirement": ">= 0.5.0" },
-    { "name": "puppetfinland/postgresql", "version_requirement": ">= 0.3.0" },
-    { "name": "puppetfinland/os", "version_requirement": ">= 0.5.5" },
-    { "name": "puppetfinland/systemd", "version_requirement": ">= 0.1.0" },
-    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.0.0" }
-  ]
+    {
+      "name": "puppetfinland/monit",
+      "version_requirement": ">= 0.5.0"
+    },
+    {
+      "name": "puppetfinland/packetfilter",
+      "version_requirement": ">= 0.5.0"
+    },
+    {
+      "name": "puppetfinland/postgresql",
+      "version_requirement": ">= 0.3.0"
+    },
+    {
+      "name": "puppetfinland/os",
+      "version_requirement": ">= 0.5.5"
+    },
+    {
+      "name": "puppetfinland/systemd",
+      "version_requirement": ">= 0.1.0"
+    },
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "8",
+        "9"
+      ]
+    },
+    {
+      "operatingsystem": "FreeBSD"
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "12.04",
+        "14.04",
+        "16.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.7.0 < 6.0.0"
+    }
+  ],
+  "pdk-version": "1.4.1",
+  "template-url": "file:///opt/puppetlabs/pdk/share/cache/pdk-templates.git",
+  "template-ref": "1.4.1-0-g52adbbb"
 }
