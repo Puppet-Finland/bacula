@@ -1,6 +1,6 @@
 {
   "name": "puppetfinland-bacula",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "author": "Puppet-Finland team",
   "summary": "Setup Bacula Directors, StorageDaemons and FileDaemons with firewall and monit support",
   "license": "BSD-2-Clause",
