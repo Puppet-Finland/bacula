@@ -58,7 +58,7 @@ class { '::bacula::filedaemon':
 class { '::bacula::console':
     tls_enable            => false,
     use_puppet_certs      => false,
-    director_address_ipv4 => '127.0.0.1',
+    director_hostname     => '127.0.0.1',
     director_password     => 'console',
 
 }

@@ -12,8 +12,9 @@
 #   Enable TLS. Defaults to false.
 # [*use_puppet_certs*]
 #   Use puppet certs for TLS. Defaults to true.
-# [*director_address_ipv4*]
-#   IPv4 address of the Director to contact
+# [*director_hostname*]
+#   The hostname for the Bacula Director to contact. Can't be an IP address,
+#   at least not when using TLS.
 # [*director_password*]
 #   Director's console password
 #
@@ -23,7 +24,7 @@
 #
 class bacula::console
 (
-            $director_address_ipv4,
+            $director_hostname,
             $director_password,
     Boolean $manage = true,
     Boolean $tls_enable = false,
@@ -41,7 +42,7 @@ if $manage {
     include ::bacula::console::install
 
     class { '::bacula::console::config':
-        director_address_ipv4 => $director_address_ipv4,
+        director_hostname     => $director_hostname,
         director_password     => $director_password,
         tls_enable            => $tls_enable,
     }

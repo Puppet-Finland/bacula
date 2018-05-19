@@ -5,7 +5,7 @@
 Director {
   Name = default-director
   DIRport = 9101
-  Address = <%= @director_address_ipv4 %>
+  Address = <%= @director_hostname %>
   Password = "<%= @director_password %>"
 
   <% if @tls_enable %>
