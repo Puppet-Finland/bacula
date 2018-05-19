@@ -42,9 +42,9 @@ if $manage {
     include ::bacula::console::install
 
     class { '::bacula::console::config':
-        director_hostname     => $director_hostname,
-        director_password     => $director_password,
-        tls_enable            => $tls_enable,
+        director_hostname => $director_hostname,
+        director_password => $director_password,
+        tls_enable        => $tls_enable,
     }
 }
 }
