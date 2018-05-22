@@ -6,12 +6,4 @@
 #
 class bacula::filedaemon::absent {
 
-    # Bacula's @include reads a file from _Directors_ filesystem, not from 
-    # FileDaemons' filesystem. This means that the $backup_files parameter of 
-    # bacula::filedaemon that populates this file is basically useless, and we 
-    # need to get rid of it.
-    file { 'bacula-bacula-backup.list':
-        ensure => absent,
-        name   => '/etc/bacula-backup.list',
-    }
 }
