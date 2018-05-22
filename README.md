@@ -82,3 +82,16 @@ For further details refer to module entrypoints:
 * [Class: bacula::storagedaemon](manifests/storagedaemon.pp)
 * [Class: bacula::filedaemon](manifests/filedaemon.pp)
 * [Class: bacula::console](manifests/console.pp)
+
+# Windows notes
+
+The ::bacula::filedaemon class supports configuring Bacula Filedaemon on 
+Windows, including poking holes for the Bacula Director into Windows firewall 
+and reusing Puppet's TLS certificates. Monit support is missing.
+
+Use forward slashes in paths you want to backup:
+
+    'C:/Program Files/Bacula'
+
+Even though double backslashes seemed to work as well, they made browsing (and 
+hence restoring) the backups using bconsole impossible.
