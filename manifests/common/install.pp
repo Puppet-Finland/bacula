@@ -3,11 +3,10 @@
 #
 # Install common components for all bacula daemons
 #
-class bacula::common::install {
+class bacula::common::install inherits bacula::params {
 
-    # FreeBSD does not have a separate bacula-common port
-    if $::operatingsystem != 'FreeBSD' {
-        package { 'bacula-bacula-common':
+    if $::bacula::params::has_bacula_common_package {
+        package { 'bacula-common':
             ensure => installed,
             name   => 'bacula-common',
         }

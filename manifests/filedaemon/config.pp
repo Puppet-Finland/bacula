@@ -5,16 +5,16 @@
 #
 class bacula::filedaemon::config
 (
-    Enum['present','absent'] $status,
-    Boolean $is_director,
-    Boolean $tls_enable,
-    String $export_tag,
-    String $pwd_for_director,
-    String $pwd_for_monitor,
-    String $bind_address,
-    Array[String] $backup_files,
-    Optional[Array[String]] $exclude_files,
-    Optional[Array[String]] $schedules,
+    Enum['present','absent']          $status,
+    Boolean                           $is_director,
+    Boolean                           $tls_enable,
+    String                            $export_tag,
+    String                            $pwd_for_director,
+    String                            $pwd_for_monitor,
+    String                            $bind_address,
+    Array[String]                     $backup_files,
+    Optional[Array[String]]           $exclude_files,
+    Optional[Array[String]]           $schedules,
     Enum['All','AllButInformational'] $messages
 
 ) inherits bacula::params
@@ -36,6 +36,9 @@ class bacula::filedaemon::config
         mode   => '0640',
         notify  => Class['bacula::filedaemon::service'],
     }
+
+    # Use a dynamic path separator to avoid *NIX-specifisms in bacula-fd.conf
+    $sep = $::bacula::params::conf_path_sep
 
     file { 'bacula-bacula-fd.conf':
         name    => $::bacula::params::bacula_filedaemon_config,

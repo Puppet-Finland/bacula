@@ -18,9 +18,9 @@ Director {
   TLS Enable = yes
   TLS Require = yes
   TLS Verify Peer = yes
-  TLS Certificate = <%= scope.lookupvar('bacula::params::ssl_dir') %>/bacula.crt
-  TLS Key = <%= scope.lookupvar('bacula::params::ssl_dir') %>/bacula.key
-  TLS CA Certificate File = <%= scope.lookupvar('bacula::params::ssl_dir') %>/bacula-ca.crt
+  TLS Certificate = "<%= scope['bacula::params::ssl_dir_tmpl'] %><%= @sep %>bacula.crt"
+  TLS Key = "<%= scope['bacula::params::ssl_dir_tmpl'] %><%= @sep %>bacula.key"
+  TLS CA Certificate File = "<%= scope['bacula::params::ssl_dir_tmpl'] %><%= @sep %>bacula-ca.crt"
   <% end %>
 }
 
@@ -40,8 +40,8 @@ Director {
 FileDaemon {                          # this is me
   Name = <%= @fqdn %>-fd
   FDport = 9102                  # where we listen for the director
-  WorkingDirectory = <%= scope.lookupvar('bacula::params::working_directory') %>
-  Pid Directory = <%= scope.lookupvar('bacula::params::pid_directory') %>
+  WorkingDirectory = "<%= scope['bacula::params::working_directory'] %>"
+  Pid Directory = "<%= scope['bacula::params::pid_directory'] %>"
 
   Maximum Concurrent Jobs = 20
   FDAddress = <%= @bind_address %>
@@ -49,9 +49,9 @@ FileDaemon {                          # this is me
   <% if @tls_enable %>
   TLS Enable = yes
   TLS Require = yes
-  TLS Certificate = <%= scope.lookupvar('bacula::params::ssl_dir') %>/bacula.crt
-  TLS Key = <%= scope.lookupvar('bacula::params::ssl_dir') %>/bacula.key
-  TLS CA Certificate File = <%= scope.lookupvar('bacula::params::ssl_dir') %>/bacula-ca.crt
+  TLS Certificate = "<%= scope['bacula::params::ssl_dir_tmpl'] %><%= @sep %>bacula.crt"
+  TLS Key = "<%= scope['bacula::params::ssl_dir_tmpl'] %><%= @sep %>bacula.key"
+  TLS CA Certificate File = "<%= scope['bacula::params::ssl_dir_tmpl'] %><%= @sep %>bacula-ca.crt"
   <% end %>
 }
 

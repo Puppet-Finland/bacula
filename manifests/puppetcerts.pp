@@ -10,14 +10,10 @@ class bacula::puppetcerts {
     include ::bacula::params
     include ::puppetagent::params
 
-    File {
-        owner   => $::os::params::adminuser,
-        group   => $::bacula::params::bacula_group,
-    }
-
     file { 'bacula-conf-dir':
         ensure  => directory,
         name    => $::bacula::params::conf_dir,
+        owner   => $::os::params::adminuser,
         group   => $::os::params::admingroup,
         mode    => '0755',
         require => Class['bacula::common'],
@@ -27,6 +23,8 @@ class bacula::puppetcerts {
         ensure  => directory,
         name    => $::bacula::params::ssl_dir,
         mode    => '0750',
+        owner   => $::os::params::adminuser,
+        group   => $::bacula::params::bacula_group,
         require => File['bacula-conf-dir'],
     }
 
@@ -35,16 +33,12 @@ class bacula::puppetcerts {
                 "${::puppetagent::params::ssldir}/certs/ca.pem"               => "${::bacula::params::ssl_dir}/bacula-ca.crt", }
 
     $keys.each |$key| {
-        exec { $key[1]:
-            command => "cp -f ${key[0]} ${key[1]}",
-            unless  => "cmp ${key[0]} ${key[1]}",
-            path    => ['/bin', '/usr/bin/' ],
-            require => File['bacula-ssl-dir'],
-        }
-
         file { $key[1]:
-            mode    => '0640',
-            require => Exec[$key[1]],
+            name   => $key[1],
+            source => $key[0],
+            mode   => '0640',
+            owner  => $::os::params::adminuser,
+            group  => $::bacula::params::bacula_group,
         }
     }
 }
