@@ -42,7 +42,7 @@ FileSet {
     }
 
     <% @backup_files.each do |backup_file| -%>
-    File = <%= backup_file %>
+    File = "<%= backup_file %>"
     <% end -%>
   }<% if @exclude_files %>
     Exclude {
