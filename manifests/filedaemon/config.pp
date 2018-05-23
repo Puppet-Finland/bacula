@@ -30,11 +30,15 @@ class bacula::filedaemon::config
         $schedule_name = 'default-schedule'
     }
 
-    File {
+    # Do not manage file permissions on Windows
+    $bacula_fd_conf_mode = $::kernel ? {
+        'windows' => undef,
+        default   => '0640',
+    }
+
+    $file_defaults = {
         ensure => $status,
         owner  => $::os::params::adminuser,
-        mode   => '0640',
-        notify  => Class['bacula::filedaemon::service'],
     }
 
     # Use a dynamic path separator to avoid *NIX-specifisms in bacula-fd.conf
@@ -42,10 +46,12 @@ class bacula::filedaemon::config
 
     file { 'bacula-bacula-fd.conf':
         name    => $::bacula::params::bacula_filedaemon_config,
+        mode    => $bacula_fd_conf_mode,
         content => template('bacula/bacula-fd.conf.erb'),
-        mode    => '0640',
         group   => $::os::params::admingroup,
         require => Class['bacula::filedaemon::install'],
+        notify  => Class['bacula::filedaemon::service'],
+        *       => $file_defaults,
     }
 
     $director_fragment_name = "/etc/bacula/bacula-dir.conf.d/${::fqdn}.conf"
@@ -57,7 +63,10 @@ class bacula::filedaemon::config
             name    => '/etc/bacula/bacula-dir.conf.d/catalog.conf',
             content => template('bacula/bacula-dir-catalog.conf.erb'),
             group   => $::bacula::params::bacula_group,
+            mode    => '0640',
             require => File['bacula-bacula-dir.conf.d'],
+            notify  => Class['bacula::director::service'],
+            *       => $file_defaults,
         }
 
         # Instantiate this resource directly if this is a Director node to
@@ -66,6 +75,10 @@ class bacula::filedaemon::config
             name    => $director_fragment_name,
             content => $director_fragment_content,
             group   => $::bacula::params::bacula_group,
+            mode    => '0640',
+            require => File['bacula-bacula-dir.conf.d'],
+            notify  => Class['bacula::director::service'],
+            *       => $file_defaults,
         }
     } else {
         # This is _not_ a Director node, so export a Director configuration 
@@ -74,8 +87,10 @@ class bacula::filedaemon::config
             name    => $director_fragment_name,
             content => $director_fragment_content,
             group   => $::bacula::params::bacula_group,
+            mode    => '0640',
             tag     => $export_tag,
-            notify  => Class[$::bacula::director::service],
+            notify  => Class['bacula::director::service'],
+            *       => $file_defaults,
         }
     }
 }
