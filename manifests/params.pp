@@ -20,6 +20,7 @@ class bacula::params {
             $bacula_storagedaemon_user = 'bacula'
             $bacula_storagedaemon_group = 'tape'
             $bacula_group = 'bacula'
+            $bacula_gid = undef
             $pid_directory = '/var/run'
             $log_directory = '/var/log/bacula'
             $working_directory = '/var/spool/bacula'
@@ -43,6 +44,7 @@ class bacula::params {
             $bacula_storagedaemon_user = 'bacula'
             $bacula_storagedaemon_group = 'tape'
             $bacula_group = 'bacula'
+            $bacula_gid = undef
             $pid_directory = '/var/run/bacula'
             $log_directory = '/var/lib/bacula/log'
             $working_directory = '/var/lib/bacula'
@@ -60,6 +62,7 @@ class bacula::params {
             $bacula_filedaemon_service = 'bacula-fd'
             $bacula_filedaemon_installable = true
             $bacula_group = 'bacula'
+            $bacula_gid = 910
             $pid_directory = '/var/run'
             $working_directory = '/var/db/bacula'
             $conf_dir = '/usr/local/etc/bacula'
@@ -76,6 +79,7 @@ class bacula::params {
             # installation is best handled elsewhere, e.g. in a profile.
             $bacula_filedaemon_installable = false
             $bacula_group = undef
+            $bacula_gid = undef
             $pid_directory = 'C:\\\\Program Files\\\\Bacula\\\\working'
             $working_directory = 'C:\\\\Program Files\\\\Bacula\\\\working'
             $conf_dir = 'C:\\\\Program Files\\\\Bacula'

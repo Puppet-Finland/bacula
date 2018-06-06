@@ -13,6 +13,7 @@ class bacula::common inherits bacula::params {
     if $bacula_group {
         group { $bacula_group:
             ensure => present,
+            gid    => $::bacula::params::bacula_gid
         }
     }
 
