@@ -40,20 +40,22 @@ FileSet {
       signature = SHA1
       compression = GZIP
     }
-    <% if @extra_backup_files -%>
-    <% @extra_backup_files.each do |extra_backup_file| -%>
+<% if @extra_backup_files -%>
+<% @extra_backup_files.each do |extra_backup_file| -%>
     File = "<%= extra_backup_file %>"
-    <% end -%>
-    <% end -%>
-    <% @backup_files.each do |backup_file| -%>
+<% end -%>
+<% end -%>
+<% @backup_files.each do |backup_file| -%>
     File = "<%= backup_file %>"
-    <% end -%>
-  }<% if @exclude_files %>
-    Exclude {
-    <% @exclude_files.each do |exclude_file| -%>
+<% end -%>
+  }
+<% if @exclude_files -%>
+  Exclude {
+<% @exclude_files.each do |exclude_file| -%>
     File = "<%= exclude_file %>"
-    <% end -%>  
-    }<% end %>
+<% end -%>
+  }
+<% end -%>
 }
 
 Client {
