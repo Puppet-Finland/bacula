@@ -13,6 +13,7 @@ class bacula::filedaemon::config
     String                            $pwd_for_monitor,
     String                            $bind_address,
     Array[String]                     $backup_files,
+    Optional[Array[String]]           $extra_backup_files,
     Optional[Array[String]]           $exclude_files,
     Optional[Array[String]]           $schedules,
     Enum['All','AllButInformational'] $messages

@@ -47,7 +47,13 @@
 # [*use_puppet_certs*]
 #   Use puppet certs for TLS. Valid values are true (default) and false.
 # [*backup_files*]
-#   An array containing the list of directories/files to backup
+#   An array containing a list of (default) directories/files to backup. The 
+#   main purpose of this parameter is to allow defining defaults globally, 
+#   per-OS, etc. One can then add other files and directories on top of these 
+#   defaults with the $extra_backup_files parameter on the node level. This 
+#   parameter is optional.
+# [*extra_backup_files*]
+#   An array containing the list of (additional) directories/files to backup.
 # [*exclude_files*]
 #   An array containing a list of directories/files/wildcards to exclude from 
 #   backups. Defaults to undef.
@@ -79,6 +85,7 @@ class bacula::filedaemon
             $pwd_for_director,
             $pwd_for_monitor,
             $backup_files,
+            $extra_backup_files = undef,
     Enum['present','absent'] $status = 'present',
     Boolean $manage = true,
     Boolean $manage_packetfilter = true,
@@ -114,17 +121,18 @@ if $manage {
     }
 
     class { '::bacula::filedaemon::config':
-        status           => $status,
-        is_director      => $is_director,
-        export_tag       => $export_tag,
-        pwd_for_director => $pwd_for_director,
-        pwd_for_monitor  => $pwd_for_monitor,
-        bind_address     => $bind_address,
-        tls_enable       => $tls_enable,
-        backup_files     => $backup_files,
-        exclude_files    => $exclude_files,
-        schedules        => $schedules,
-        messages         => $messages,
+        status             => $status,
+        is_director        => $is_director,
+        export_tag         => $export_tag,
+        pwd_for_director   => $pwd_for_director,
+        pwd_for_monitor    => $pwd_for_monitor,
+        bind_address       => $bind_address,
+        tls_enable         => $tls_enable,
+        extra_backup_files => $extra_backup_files,
+        backup_files       => $backup_files,
+        exclude_files      => $exclude_files,
+        schedules          => $schedules,
+        messages           => $messages,
     }
 
     class { '::bacula::filedaemon::service':

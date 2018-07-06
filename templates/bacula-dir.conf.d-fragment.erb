@@ -40,7 +40,11 @@ FileSet {
       signature = SHA1
       compression = GZIP
     }
-
+    <% if @extra_backup_files -%>
+    <% @extra_backup_files.each do |extra_backup_file| -%>
+    File = "<%= extra_backup_file %>"
+    <% end -%>
+    <% end -%>
     <% @backup_files.each do |backup_file| -%>
     File = "<%= backup_file %>"
     <% end -%>
