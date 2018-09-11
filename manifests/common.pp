@@ -3,7 +3,11 @@
 #
 # Setup common components for all bacula daemons
 #
-class bacula::common inherits bacula::params {
+class bacula::common
+(
+    Optional[String] $package_version = undef
+
+) inherits bacula::params {
 
     $bacula_group = $::bacula::params::bacula_group
 
@@ -17,6 +21,8 @@ class bacula::common inherits bacula::params {
         }
     }
 
-    class { '::bacula::common::install': }
+    class { '::bacula::common::install':
+        package_version => $package_version,
+    }
 }
 

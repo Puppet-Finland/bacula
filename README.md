@@ -57,6 +57,7 @@ full:
     class { '::bacula::filedaemon':
         is_director           => true,
         status                => 'present',
+        package_version       => undef,
         manage_packetfilter   => true,
         manage_monit          => true,
         use_puppet_certs      => false,

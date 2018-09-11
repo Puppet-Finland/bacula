@@ -33,6 +33,9 @@
 #   versions under different names, e.g. for compatibility reasons. For example 
 #   on FreeBSD 10 you need to set this parameter to 'bacula5-client' to be able 
 #   to connect to 5.2.x-based Directors and StorageDaemons.
+# [*package_version*]
+#   Version of the package to install. Useful when you have to use backported
+#   packages for example. Defaults to undef.
 # [*director_address_ipv4*]
 #   IP-address for incoming Bacula Director packets.
 # [*pwd_for_director*]
@@ -94,6 +97,7 @@ class bacula::filedaemon
     Boolean $tls_enable = false,
             $export_tag = 'bacula-dir.conf.d-fragment',
             $package_name = $::bacula::params::bacula_filedaemon_package,
+            $package_version = undef,
             $is_director = false,
             $bind_address = '127.0.0.1',
             $exclude_files = undef,
@@ -113,11 +117,14 @@ if $manage {
         include ::bacula::puppetcerts
     }
 
-    include ::bacula::common
+    class { '::bacula::common':
+        package_version => $package_version,
+    }
 
     class { '::bacula::filedaemon::install':
-        status       => $status,
-        package_name => $package_name,
+        status          => $status,
+        package_name    => $package_name,
+        package_version => $package_version,
     }
 
     class { '::bacula::filedaemon::config':
