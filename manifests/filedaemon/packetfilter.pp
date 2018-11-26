@@ -13,10 +13,10 @@ class bacula::filedaemon::packetfilter
         ::windows_firewall::exception { 'bacula-director':
             ensure       => $status,
             direction    => 'in',
-            action       => 'Allow',
-            enabled      => 'yes',
+            action       => 'allow',
+            enabled      => true,
             protocol     => 'TCP',
-            local_port   => '9102',
+            local_port   => 9102,
             remote_ip    => $director_address_ipv4,
             display_name => 'Bacula Director-in',
             description  => 'Allow Bacula Director connections to tcp port 9102',
