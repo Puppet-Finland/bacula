@@ -10,13 +10,13 @@ class bacula::director::config::postgresql
     $bacula_db_password
 )
 {
-    include ::postgresql::params
+    include ::pf_postgresql::params
 
     # Prepare postgresql for Bacula's own database schema scripts
-    postgresql::loadsql { 'bacula-bacula-director.sql':
+    pf_postgresql::loadsql { 'bacula-bacula-director.sql':
         modulename => 'bacula',
         basename   => 'bacula-director',
-        require    => Class['::postgresql::install'],
+        require    => Class['::pf_postgresql::install'],
     }
 
     $script_dir = $::bacula::params::script_dir
@@ -33,13 +33,13 @@ class bacula::director::config::postgresql
         path        => [ '/usr/bin' ],
         user        => 'postgres',
         refreshonly => true,
-        subscribe   => Postgresql::Loadsql['bacula-bacula-director.sql'],
+        subscribe   => Pf_postgresql::Loadsql['bacula-bacula-director.sql'],
     }
 
     exec { 'bacula-make_postgresql_tables':
         environment => [ 'db_name=bacula' ],
         command     => "${script_dir}/make_postgresql_tables",
-        require     => Postgresql::Loadsql['bacula-bacula-director.sql'],
+        require     => Pf_postgresql::Loadsql['bacula-bacula-director.sql'],
     }
 
     exec { 'bacula-grant_postgresql_privileges':
@@ -51,7 +51,7 @@ class bacula::director::config::postgresql
     # Add an authentication line for baculauser to postgresql pg_hba.conf. For 
     # details look into postgresql::config class.
     augeas { 'bacula-director-pg_hba.conf':
-        context => "/files${::postgresql::params::pg_hba_conf}",
+        context => "/files${::pf_postgresql::params::pg_hba_conf}",
         changes => [
             'ins 0434 after 1',
             'set 0434/type local',
@@ -60,10 +60,10 @@ class bacula::director::config::postgresql
             'set 0434/method password'
         ],
         lens    => 'Pg_hba.lns',
-        incl    => $::postgresql::params::pg_hba_conf,
+        incl    => $::pf_postgresql::params::pg_hba_conf,
         # Without "onlyif" every Puppet run would generate a new authentication 
         # line to pg_hba.conf.
         onlyif  => "match *[user = 'baculauser'] size == 0",
-        notify  => Class['postgresql::service'],
+        notify  => Class['pf_postgresql::service'],
     }
 }
