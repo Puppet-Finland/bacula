@@ -97,7 +97,7 @@ class bacula::params {
     $bacula_storagedaemon_pidfile = "${pid_directory}/bacula-sd.9103.pid"
     $bacula_filedaemon_pidfile = "${pid_directory}/bacula-fd.9102.pid"
 
-    if str2bool($::has_systemd) {
+    if $::systemd {
         $bacula_director_service_start = "${::os::params::systemctl} start ${bacula_director_service}"
         $bacula_director_service_stop = "${::os::params::systemctl} stop ${bacula_director_service}"
         $bacula_storagedaemon_service_start = "${::os::params::systemctl} start ${bacula_storagedaemon_service}"
